@@ -25,7 +25,14 @@ export default function Settings(props) {
     }
 
     return (
-        <div className="settings">
+        <div
+            className="settings"
+            style={{
+                opacity: props.isShown ? "100%" : "0",
+                zIndex: props.isShown ? "1" : "-1",
+                scale: props.isShown ? "1" : "0"
+            }}
+        >
             <label className="question-head">Number of Questions</label>
             <input
                 type="number"

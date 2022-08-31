@@ -4,6 +4,10 @@ import { nanoid } from "nanoid"
 import decode64Code from "../Base64Decoder"
 import randomize from "../Randomizer";
 
+const body = document.body
+const html = document.documentElement
+let errorText
+
 function QuizPage(props) {
     const [questions, setQuestions] = React.useState([])
     const [quizQuestions, setQuizQuestions] = React.useState([])
@@ -17,7 +21,7 @@ function QuizPage(props) {
         if (props.details.difficulty !== "any") text += `&difficulty=${props.details.difficulty}`
         if (props.details.type !== "any") text += `&type=${props.details.type}`
         text += `&encode=base64`
-         if (!isCancelled) {
+        if (!isCancelled) {
             fetch(text)
                 .then(res => res.json())
                 .then(data => {
@@ -25,7 +29,8 @@ function QuizPage(props) {
                         setQuestions(data.results)
                     else setError({ isFound: true, errorCode: data.response_code })
                 })
-            window.addEventListener('resize', setDimensions([window.innerWidth, window.innerHeight]))
+            window.addEventListener('resize', setDimensions([window.innerWidth, Math.max(body.scrollHeight, body.offsetHeight,
+                html.clientHeight, html.scrollHeight, html.offsetHeight)]))
         }
 
         return () => {
@@ -43,7 +48,8 @@ function QuizPage(props) {
     const [isFinished, setIsFinished] = React.useState(false)
     const [correctAnswersNo, setCorrectAnswersNo] = React.useState(0)
     const [quizAnswers, setQuizAnswers] = React.useState({})
-    const [dimentions, setDimensions] = React.useState([window.innerWidth, window.innerHeight])
+    const [dimentions, setDimensions] = React.useState([window.innerWidth, Math.max(body.scrollHeight, body.offsetHeight,
+        html.clientHeight, html.scrollHeight, html.offsetHeight)])
 
 
     function handleChange(e) {
@@ -67,6 +73,22 @@ function QuizPage(props) {
 
     function playAgain() {
         props.handleClick()
+    }
+
+    function showError(errorCode = error.errorCode) {
+        let errorText
+        switch (errorCode) {
+            case 1:
+                errorText = "The server couldn't find enough questions. Try to choose less filters or decrease the number of questions"
+                break
+            case 2:
+                errorText = "The setver couldn't understand what you specified. Please return to the main menu and try again"
+                break
+            default:
+                errorText = "There has been an error with the server. Please return to the main menu and try again"
+                break
+        }
+        return errorText
     }
 
     const questionElements = quizQuestions.map((question, qIndex) => {
@@ -164,12 +186,9 @@ function QuizPage(props) {
             {
                 error.isFound &&
                 <div className="error-message">
-                    {
-                        error.errorCode === 1 &&
-                        <div className="question-head">
-                            The server couldn't find enough questions. Try to choose less filters or decrease the number of questions
-                        </div>
-                    }
+                    <div className="question-head">
+                        {showError()}
+                    </div>
                     <button
                         type="button"
                         onClick={playAgain}
