@@ -34,7 +34,7 @@ body {
     max-width: 100vw;
     min-height: 100vh;
     background-color: #F5F7FB;
-    background-image: url("./images/blue\ blob.svg"), url("./images/yellow\ blob.svg");
+    background-image: url("./images/blue-blob.svg"), url("./images/yellow-blob.svg");
     background-repeat: no-repeat;
     background-size: 35%;
     background-position: bottom left, top right;
