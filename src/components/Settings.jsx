@@ -5,12 +5,6 @@ const DETAILS_LOCAL_KEY = "quizzical.bumble.details"
 export default function Settings(props) {
     const [quizDetails, setQuizDetails] = React.useState(props.quizDetails)
 
-    const style = {
-        opacity: props.isShown ? "100%" : "0",
-        zIndex: props.isShown ? "1" : "-1",
-        scale: props.isShown ? "1" : "0"
-    }
-
     function handleChange(e) {
         let { name, value, type, checked } = e.target
 
@@ -33,7 +27,11 @@ export default function Settings(props) {
     return (
         <div
             className="settings"
-            style={style}
+            style={{
+                opacity: props.isShown ? "100%" : "0",
+                zIndex: props.isShown ? "1" : "-1",
+                scale: props.isShown ? "1" : "0"
+            }}
         >
             <label className="question-head">Number of Questions</label>
             <input

@@ -32,14 +32,12 @@ export default function StartPage(props) {
                     &#xf013;
                 </i>
             </div>
-            {
-                showSettings &&
-                <Settings
-                    handleClick={() => setShowSettings(false)}
-                    quizDetails={props.quizDetails}
-                    setQuizDetails={props.setQuizDetails}
-                />
-            }
+            <Settings
+                handleClick={() => setShowSettings(false)}
+                quizDetails={props.quizDetails}
+                setQuizDetails={props.setQuizDetails}
+                isShown={showSettings} 
+            />
         </div>
     )
 }
