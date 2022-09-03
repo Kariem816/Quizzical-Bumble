@@ -5,7 +5,7 @@ export default function StartPage(props) {
     const [showSettings, setShowSettings] = React.useState(false)
 
     return (
-        <div className="start-page">
+        <div className={`start-page${props.darkMode ? " dark" : ""}`}>
             <h1
                 className="start-page-title"
             >
@@ -33,10 +33,11 @@ export default function StartPage(props) {
                 </i>
             </div>
             <Settings
+                darkMode={props.darkMode}
                 handleClick={() => setShowSettings(false)}
                 quizDetails={props.quizDetails}
                 setQuizDetails={props.setQuizDetails}
-                isShown={showSettings} 
+                isShown={showSettings}
             />
         </div>
     )

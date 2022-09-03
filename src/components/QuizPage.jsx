@@ -7,6 +7,7 @@ import randomize from "../Randomizer";
 const body = document.body
 const html = document.documentElement
 let errorText
+let correctAnswersNo
 
 function QuizPage(props) {
     const [questions, setQuestions] = React.useState([])
@@ -46,7 +47,6 @@ function QuizPage(props) {
     }, [questions])
 
     const [isFinished, setIsFinished] = React.useState(false)
-    const [correctAnswersNo, setCorrectAnswersNo] = React.useState(0)
     const [quizAnswers, setQuizAnswers] = React.useState({})
     const [dimentions, setDimensions] = React.useState([window.innerWidth, Math.max(body.scrollHeight, body.offsetHeight,
         html.clientHeight, html.scrollHeight, html.offsetHeight)])
@@ -64,9 +64,10 @@ function QuizPage(props) {
     }
 
     function submit() {
+        correctAnswersNo = 0
         for (let i = 0; i < quizQuestions.length; i++) {
             if (quizQuestions[i].correct_answer === quizAnswers[i])
-                setCorrectAnswersNo(prevNumber => prevNumber + 1)
+                correctAnswersNo++
         }
         setIsFinished(prevState => !prevState)
     }
@@ -82,7 +83,7 @@ function QuizPage(props) {
                 errorText = "The server couldn't find enough questions. Try to choose less filters or decrease the number of questions"
                 break
             case 2:
-                errorText = "The setver couldn't understand what you specified. Please return to the main menu and try again"
+                errorText = "The server couldn't understand what you specified. Please return to the main menu and try again"
                 break
             default:
                 errorText = "There has been an error with the server. Please return to the main menu and try again"
@@ -128,13 +129,36 @@ function QuizPage(props) {
             )
         })
         return (
-            <div
-                key={qIndex}
-                className="question"
-            >
-                <div className="question-head">{decode64Code(question.question)}</div>
-                <div className="question-choices">
-                    {answerElements}
+            <div key={qIndex}>
+                <div
+                    className="question"
+                >
+                    <div>
+                        <div className="question-head">{decode64Code(question.question)}</div>
+                        <div className="question-choices">
+                            {answerElements}
+                        </div>
+                    </div>
+                    <div className="tags">
+                        <div className={`specifics${props.darkMode ? " dark" : ""}`}>
+                            <div className="category">{decode64Code(question.category)}</div>
+                            <div className="difficulty">{decode64Code(question.difficulty)}</div>
+                        </div>
+                        {
+                            isFinished &&
+                            <div className="answered">
+                                {
+                                    quizAnswers[qIndex] ?
+                                        quizAnswers[qIndex] === question.correct_answer ?
+                                            <i style={{ fontSize: "24px", color: "#94D7A2" }} className="fa">&#xf00c;</i>
+                                            :
+                                            <i style={{ fontSize: "24px", color: "#F8BCBC" }} className="fa">&#xf00d;</i>
+                                        :
+                                        <i style={{ fontSize: "24px", color: "#FCEA65" }} className="fa">&#xf128;</i>
+                                }
+                            </div>
+                        }
+                    </div>
                 </div>
                 <hr />
             </div>
@@ -146,7 +170,7 @@ function QuizPage(props) {
             {
                 !error.isFound &&
                 <div
-                    className="quiz"
+                    className={`quiz${props.darkMode ? " dark" : ""}`}
                 >
                     <div>
                         {questionElements}
@@ -163,7 +187,7 @@ function QuizPage(props) {
                     }
                     {
                         isFinished &&
-                        <div className="finished">
+                        <div className={`finished${props.darkMode ? " dark" : ""}`}>
                             <p>You scored {correctAnswersNo}/{quizQuestions.length} correct answer</p>
                             <button
                                 type="button"
@@ -185,7 +209,7 @@ function QuizPage(props) {
             }
             {
                 error.isFound &&
-                <div className="error-message">
+                <div className={`error-message${props.darkMode ? " dark" : ""}`}>
                     <div className="question-head">
                         {showError()}
                     </div>

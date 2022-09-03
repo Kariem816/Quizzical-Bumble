@@ -26,7 +26,7 @@ export default function Settings(props) {
 
     return (
         <div
-            className="settings"
+            className={`settings${props.darkMode ? " dark" : ""}`}
             style={{
                 opacity: props.isShown ? "100%" : "0",
                 zIndex: props.isShown ? "1" : "-1",
