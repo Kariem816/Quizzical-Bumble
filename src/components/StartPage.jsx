@@ -18,13 +18,22 @@ export default function StartPage(props) {
                 >
                     Start quiz
                 </button>
-                <i
-                    style={{ fontSize: "40px" }}
-                    className="fa"
-                    onClick={() => setShowSettings(true)}
+                <button
+                    style={{
+                        backgroundColor: "transparent",
+                        outline: "none",
+                        border: "none",
+                        padding: "0",
+                    }}
                 >
-                    &#xf013;
-                </i>
+                    <i
+                        style={{ fontSize: "40px" }}
+                        className="fa"
+                        onClick={() => setShowSettings(true)}
+                    >
+                        &#xf013;
+                    </i>
+                </button>
             </div>
             <Settings
                 darkMode={props.darkMode}
