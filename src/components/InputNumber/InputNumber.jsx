@@ -4,12 +4,12 @@ import "./InputNumber.css";
 export default function InputNumber({
     className,
     onChange,
-    defaultOption,
+    defaultValue,
     max = 100,
     min = 0,
     step = 1,
 }) {
-    const [number, setNumber] = useState(defaultOption ? defaultOption : 10);
+    const [number, setNumber] = useState(defaultValue ? defaultValue : 10);
 
     function increment() {
         if (number + step <= max) {

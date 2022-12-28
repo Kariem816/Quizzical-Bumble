@@ -14,8 +14,8 @@ export default function DropDown({
     const [selected, setSelected] = useState(
         defaultOption ? defaultOption : ""
     );
+    const [query, setQuery] = useState("");
     const type = typeof options[0];
-    //   const [query, setQuery] = useState("");
 
     const selectedRef = useRef(null);
 
@@ -37,11 +37,11 @@ export default function DropDown({
         setIsOpen(false);
     }
 
-    //   const filteredOptions = options.filter((option) =>
-    //     option.option.toLowerCase().includes(query.toLowerCase())
-    //   );
+    const filteredOptions = options.filter((option) =>
+        option.option.toLowerCase().includes(query.toLowerCase())
+    );
 
-    const dropDownChoices = options.map((option, index) => {
+    const dropDownChoices = filteredOptions.map((option, index) => {
         if (type === "string") {
             return (
                 <div
@@ -75,21 +75,36 @@ export default function DropDown({
         return option.option;
     }
 
+    const selectedOption =
+        type === "string"
+            ? selected === ""
+                ? "---"
+                : capitalize(selected)
+            : !selected
+            ? "---"
+            : capitalize(getOptionFromValue(selected));
+
     return (
         <div className={"drop-down " + className}>
-            <div className="drop-down-header" onClick={handleClick}>
-                <div className="drop-down-selected">
-                    {type === "string"
-                        ? selected === ""
-                            ? "---"
-                            : capitalize(selected)
-                        : !selected
-                        ? "---"
-                        : capitalize(getOptionFromValue(selected))}
-                </div>
+            <div className="drop-down-header">
+                {isOpen ? (
+                    <input
+                        type="text"
+                        className="drop-down-search"
+                        placeholder={selectedOption}
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        autoFocus
+                    />
+                ) : (
+                    <div className="drop-down-selected" onClick={handleClick}>
+                        {selectedOption}
+                    </div>
+                )}
                 <button
                     className={`drop-down-btn${isOpen ? " open" : ""}`}
                     type="button"
+                    onClick={handleClick}
                 >
                     <FaAngleLeft />
                 </button>

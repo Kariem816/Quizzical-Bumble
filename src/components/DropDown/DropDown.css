@@ -20,6 +20,7 @@
     justify-content: center;
     position: relative;
     width: 90%;
+    height: 27px;
     box-shadow: 0px 2px 2px var(--shadow-clr);
     color: var(--font-clr);
     border: none;
@@ -47,8 +48,19 @@
 
 .drop-down-selected {
     width: 100%;
-    margin-block: auto;
-    pointer-events: none;
+    margin-inline: auto;
+}
+
+.drop-down-search {
+    width: 100%;
+    height: 100%;
+    margin-inline: auto;
+    outline: none;
+    padding: 0;
+}
+
+.drop-down-search::placeholder {
+    font-size: 14px;
 }
 
 .drop-down-btn {

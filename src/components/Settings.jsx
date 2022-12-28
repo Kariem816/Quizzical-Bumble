@@ -83,7 +83,7 @@ export default function Settings(props) {
             <InputNumber
                 className={props.darkMode ? "dark" : ""}
                 onChange={changeNumber}
-                defaultOption={quizDetails.number}
+                defaultValue={quizDetails.number}
                 min={1}
                 max={50}
             />
