@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import capitalize from "../../utils/capitalize";
 import { FaAngleLeft } from "react-icons/fa";
 import "./DropDown.css";
@@ -16,6 +16,16 @@ export default function DropDown({
     );
     const type = typeof options[0];
     //   const [query, setQuery] = useState("");
+
+    const selectedRef = useRef(null);
+
+    useEffect(() => {
+        if (selectedRef.current) {
+            selectedRef.current.scrollIntoView({
+                block: "center",
+            });
+        }
+    }, [isOpen]);
 
     function handleClick() {
         setIsOpen((prev) => !prev);
@@ -51,6 +61,7 @@ export default function DropDown({
                     className={`drop-down-choice${
                         selected === option.value ? " selected" : ""
                     }`}
+                    ref={selected === option.value ? selectedRef : null}
                     onClick={() => handleSelect(option.value)}
                 >
                     {capitalize(option.option)}

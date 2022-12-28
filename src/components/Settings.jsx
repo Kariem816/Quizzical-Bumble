@@ -10,8 +10,6 @@ export default function Settings(props) {
     function handleChange(e) {
         let { name, value, type, checked } = e.target;
 
-        if (type === "number" && value > 50) value = 50;
-
         setQuizDetails((prevFormData) => {
             return {
                 ...prevFormData,
@@ -39,9 +37,9 @@ export default function Settings(props) {
     }
 
     function saveDetails() {
-        props.setQuizDetails(quizDetails);
-        localStorage.setItem(DETAILS_LOCAL_KEY, JSON.stringify(quizDetails));
-        props.handleClick();
+        props.setQuizDetails(quizDetails); // update quizDetails in StartPage.jsx
+        localStorage.setItem(DETAILS_LOCAL_KEY, JSON.stringify(quizDetails)); // save quizDetails in localStorage
+        props.close(); // close settings
     }
 
     const categories = [
@@ -85,7 +83,7 @@ export default function Settings(props) {
             <InputNumber
                 className={props.darkMode ? "dark" : ""}
                 onChange={changeNumber}
-                value={quizDetails.number}
+                defaultOption={quizDetails.number}
                 min={1}
                 max={50}
             />

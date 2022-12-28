@@ -1,19 +1,13 @@
-import React from "react"
-import Settings from "./Settings"
+import React from "react";
+import Settings from "./Settings";
 
 export default function StartPage(props) {
-    const [showSettings, setShowSettings] = React.useState(false)
+    const [showSettings, setShowSettings] = React.useState(false);
 
     return (
         <div className={`start-page${props.darkMode ? " dark" : ""}`}>
-            <h1
-                className="start-page-title"
-            >
-                Quizzical
-            </h1>
-            <p
-                className="start-page-description"
-            >
+            <h1 className="start-page-title">Quizzical</h1>
+            <p className="start-page-description">
                 Try to Answer as many questions as you can
             </p>
             <div className="start-page-start">
@@ -34,11 +28,11 @@ export default function StartPage(props) {
             </div>
             <Settings
                 darkMode={props.darkMode}
-                handleClick={() => setShowSettings(false)}
+                close={() => setShowSettings(false)}
                 quizDetails={props.quizDetails}
                 setQuizDetails={props.setQuizDetails}
                 isShown={showSettings}
             />
         </div>
-    )
+    );
 }

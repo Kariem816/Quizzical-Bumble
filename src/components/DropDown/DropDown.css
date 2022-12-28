@@ -48,6 +48,7 @@
 .drop-down-selected {
     width: 100%;
     margin-block: auto;
+    pointer-events: none;
 }
 
 .drop-down-btn {
@@ -75,7 +76,7 @@
     right: 0;
     max-height: calc(var(--max-height) * 17px);
     background-color: inherit;
-    border-radius: 7px;
+    border-radius: 5px;
     border-bottom: 1px solid var(--border-clr);
     overflow: auto;
 }
@@ -97,12 +98,4 @@
 .drop-down-choice:hover {
     background-color: var(--hover-clr);
     color: var(--font-clr-2);
-}
-
-.drop-down-choice:first-child {
-    border-radius: 7px 7px 0 0;
-}
-
-.drop-down-choice:last-child {
-    border-radius: 0 0 7px 7px;
 }
