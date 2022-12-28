@@ -1,28 +1,76 @@
-import React from "react"
+import React from "react";
+import DropDown from "./DropDown/DropDown";
+import InputNumber from "./InputNumber/InputNumber";
 
-const DETAILS_LOCAL_KEY = "quizzical.bumble.details"
+const DETAILS_LOCAL_KEY = "quizzical.bumble.details";
 
 export default function Settings(props) {
-    const [quizDetails, setQuizDetails] = React.useState(props.quizDetails)
+    const [quizDetails, setQuizDetails] = React.useState(props.quizDetails);
 
     function handleChange(e) {
-        let { name, value, type, checked } = e.target
+        let { name, value, type, checked } = e.target;
 
-        if (type === "number" && value > 50) value = 50
+        if (type === "number" && value > 50) value = 50;
 
-        setQuizDetails(prevFormData => {
+        setQuizDetails((prevFormData) => {
             return {
                 ...prevFormData,
-                [name]: type === "checkbox" ? checked : value
-            }
-        })
+                [name]: type === "checkbox" ? checked : value,
+            };
+        });
+    }
+
+    function changeCategory(newCategory) {
+        setQuizDetails((prevFormData) => {
+            return {
+                ...prevFormData,
+                category: newCategory,
+            };
+        });
+    }
+
+    function changeNumber(newNumber) {
+        setQuizDetails((prevFormData) => {
+            return {
+                ...prevFormData,
+                number: newNumber,
+            };
+        });
     }
 
     function saveDetails() {
-        props.setQuizDetails(quizDetails)
-        localStorage.setItem(DETAILS_LOCAL_KEY, JSON.stringify(quizDetails))
-        props.handleClick()
+        props.setQuizDetails(quizDetails);
+        localStorage.setItem(DETAILS_LOCAL_KEY, JSON.stringify(quizDetails));
+        props.handleClick();
     }
+
+    const categories = [
+        { option: "Any", value: "any" },
+        { option: "General Knowledge", value: "9" },
+        { option: "Entertainment: Books", value: "10" },
+        { option: "Entertainment: Film", value: "11" },
+        { option: "Entertainment: Music", value: "12" },
+        { option: "Entertainment: Musicals & Theatres", value: "13" },
+        { option: "Entertainment: Television", value: "14" },
+        { option: "Entertainment: Video Games", value: "15" },
+        { option: "Entertainment: Board Games", value: "16" },
+        { option: "Science & Nature", value: "17" },
+        { option: "Science: Computers", value: "18" },
+        { option: "Science: Mathematics", value: "19" },
+        { option: "Mythology", value: "20" },
+        { option: "Sports", value: "21" },
+        { option: "Geography", value: "22" },
+        { option: "History", value: "23" },
+        { option: "Politics", value: "24" },
+        { option: "Art", value: "25" },
+        { option: "Celebrities", value: "26" },
+        { option: "Animals", value: "27" },
+        { option: "Vehicles", value: "28" },
+        { option: "Entertainment: Comics", value: "29" },
+        { option: "Science: Gadgets", value: "30" },
+        { option: "Entertainment: Japanese Anime & Manga", value: "31" },
+        { option: "Entertainment: Cartoon & Animations", value: "32" },
+    ];
 
     return (
         <div
@@ -30,51 +78,26 @@ export default function Settings(props) {
             style={{
                 opacity: props.isShown ? "100%" : "0",
                 zIndex: props.isShown ? "1" : "-1",
-                scale: props.isShown ? "1" : "0"
+                scale: props.isShown ? "1" : "0",
             }}
         >
             <label className="question-head">Number of Questions</label>
-            <input
-                type="number"
-                name="number"
+            <InputNumber
+                className={props.darkMode ? "dark" : ""}
+                onChange={changeNumber}
+                value={quizDetails.number}
                 min={1}
                 max={50}
-                onChange={handleChange}
-                value={quizDetails.number}
             />
 
             <label className="question-head">Choose Category</label>
-            <select
-                name="category"
-                value={quizDetails.category}
-                onChange={handleChange}
-            >
-                <option value="any">Any</option>
-                <option value="9">General Knowledge</option>
-                <option value="10">Entertainment: Books</option>
-                <option value="11">Entertainment: Film</option>
-                <option value="12">Entertainment: Music</option>
-                <option value="13">Entertainment: Musicals & Theatres</option>
-                <option value="14">Entertainment: Television</option>
-                <option value="15">Entertainment: Video Games</option>
-                <option value="16">Entertainment: Board Games</option>
-                <option value="17">Science & Nature</option>
-                <option value="18">Science: Computers</option>
-                <option value="19">Science: Mathematics</option>
-                <option value="20">Mythology</option>
-                <option value="21">Sports</option>
-                <option value="22">Geography</option>
-                <option value="23">History</option>
-                <option value="24">Politics</option>
-                <option value="25">Art</option>
-                <option value="26">Celebrities</option>
-                <option value="27">Animals</option>
-                <option value="28">Vehicles</option>
-                <option value="29">Entertainment: Comics</option>
-                <option value="30">Science: Gadgets</option>
-                <option value="31">Entertainment: Japanese Anime & Manga</option>
-                <option value="32">Entertainment: Cartoon & Animations</option>
-            </select>
+            <DropDown
+                className={props.darkMode ? "dark" : ""}
+                options={categories}
+                onChange={changeCategory}
+                defaultOption={quizDetails.category}
+                limit={9.8}
+            />
 
             <div className="question-head">Choose Difficulty</div>
             <div className="question-choices">
@@ -86,10 +109,7 @@ export default function Settings(props) {
                     checked={quizDetails.difficulty === "any"}
                     onChange={handleChange}
                 />
-                <label
-                    className="choice"
-                    htmlFor="difficultyAny"
-                >
+                <label className="choice" htmlFor="difficultyAny">
                     Any
                 </label>
                 <input
@@ -100,10 +120,7 @@ export default function Settings(props) {
                     checked={quizDetails.difficulty === "easy"}
                     onChange={handleChange}
                 />
-                <label
-                    className="choice"
-                    htmlFor="difficultyEasy"
-                >
+                <label className="choice" htmlFor="difficultyEasy">
                     Easy
                 </label>
                 <input
@@ -114,10 +131,7 @@ export default function Settings(props) {
                     checked={quizDetails.difficulty === "medium"}
                     onChange={handleChange}
                 />
-                <label
-                    className="choice"
-                    htmlFor="difficultyMedium"
-                >
+                <label className="choice" htmlFor="difficultyMedium">
                     Medium
                 </label>
                 <input
@@ -128,10 +142,7 @@ export default function Settings(props) {
                     checked={quizDetails.difficulty === "hard"}
                     onChange={handleChange}
                 />
-                <label
-                    className="choice"
-                    htmlFor="difficultyHard"
-                >
+                <label className="choice" htmlFor="difficultyHard">
                     Hard
                 </label>
             </div>
@@ -146,10 +157,7 @@ export default function Settings(props) {
                     checked={quizDetails.type === "any"}
                     onChange={handleChange}
                 />
-                <label
-                    className="choice"
-                    htmlFor="typeAny"
-                >
+                <label className="choice" htmlFor="typeAny">
                     Any
                 </label>
                 <input
@@ -160,10 +168,7 @@ export default function Settings(props) {
                     checked={quizDetails.type === "multiple"}
                     onChange={handleChange}
                 />
-                <label
-                    className="choice"
-                    htmlFor="typeMultiple"
-                >
+                <label className="choice" htmlFor="typeMultiple">
                     Multiple Choice
                 </label>
                 <input
@@ -174,26 +179,21 @@ export default function Settings(props) {
                     checked={quizDetails.type === "boolean"}
                     onChange={handleChange}
                 />
-                <label
-                    className="choice"
-                    htmlFor="typeBoolean"
-                >
+                <label className="choice" htmlFor="typeBoolean">
                     True or False
                 </label>
             </div>
-
 
             <button
                 type="button"
                 className="start-page-btn"
                 onClick={saveDetails}
                 style={{
-                    marginInline: "auto"
+                    marginInline: "auto",
                 }}
             >
                 OK
             </button>
-
         </div>
-    )
+    );
 }
