@@ -109,14 +109,14 @@ export default function DropDown({
                     <FaAngleLeft />
                 </button>
             </div>
-            {isOpen && (
-                <div
-                    className="drop-down-choices"
-                    style={{ "--max-height": limit }}
-                >
-                    {dropDownChoices}
-                </div>
-            )}
+            <div
+                className={`drop-down-choices ${isOpen ? "shown" : "hidden"}`}
+                style={{
+                    "--max-height": limit,
+                }}
+            >
+                {dropDownChoices}
+            </div>
         </div>
     );
 }
