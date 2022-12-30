@@ -4,14 +4,11 @@
     --hover-clr: rgba(214, 219, 245, 1);
     --shadow-clr: rgba(0, 0, 0, 0.15);
 
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 4px;
     position: relative;
-    overflow: hidden;
-    box-shadow: 0px 4px 4px var(--shadow-clr);
+    width: 50%;
+    display: grid;
+    border-radius: 4px;
+    box-shadow: 4px 4px 4px var(--shadow-clr);
 }
 
 .input-number.dark {
@@ -31,10 +28,12 @@
 
 .input-number-btn:first-child {
     left: 0;
+    border-radius: 4px 0 0 4px;
 }
 
 .input-number-btn:last-child {
     right: 0;
+    border-radius: 0 4px 4px 0;
 }
 
 .input-number-btn:hover {
@@ -43,5 +42,11 @@
 
 .input-number input {
     width: 100%;
+    padding: 5px;
+    background-color: #f5f7fb;
+    border: none;
+    border-radius: 4px;
+    color: #293264;
     outline: none;
+    text-align: center;
 }

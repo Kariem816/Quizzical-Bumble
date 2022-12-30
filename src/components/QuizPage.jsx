@@ -158,7 +158,13 @@ function QuizPage(props) {
         return (
             <div key={qIndex}>
                 <div className="question">
-                    <div>
+                    <div
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-between",
+                        }}
+                    >
                         <div className="question-head">
                             {decode64Code(question.question)}
                         </div>

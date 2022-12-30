@@ -79,7 +79,9 @@ export default function Settings(props) {
                 scale: props.isShown ? "1" : "0",
             }}
         >
-            <label className="question-head">Number of Questions</label>
+            <label className="question-head" htmlFor="input-number">
+                Number of Questions
+            </label>
             <InputNumber
                 className={props.darkMode ? "dark" : ""}
                 onChange={changeNumber}

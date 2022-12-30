@@ -25,6 +25,7 @@ export default function StartPage(props) {
                         border: "none",
                         padding: "0",
                     }}
+                    aria-label="settings"
                 >
                     <i
                         style={{ fontSize: "40px" }}
@@ -41,6 +42,7 @@ export default function StartPage(props) {
                 quizDetails={props.quizDetails}
                 setQuizDetails={props.setQuizDetails}
                 isShown={showSettings}
+                aria-hidden={!showSettings}
             />
         </div>
     );

@@ -50,11 +50,26 @@ export default function InputNumber({
 
     return (
         <div className={`input-number ${className}`}>
-            <button className="input-number-btn" onClick={decrement}>
+            <button
+                type="button"
+                className="input-number-btn"
+                onClick={decrement}
+                aria-label="decrement"
+            >
                 -
             </button>
-            <input type="text" onChange={handleChange} value={number} />
-            <button className="input-number-btn" onClick={increment}>
+            <input
+                type="text"
+                id="input-number"
+                onChange={handleChange}
+                value={number}
+            />
+            <button
+                type="button"
+                className="input-number-btn"
+                onClick={increment}
+                aria-label="increment"
+            >
                 +
             </button>
         </div>
