@@ -226,7 +226,7 @@ function QuizPage(props) {
         <>
             {!error.isFound && (
                 <div className={`quiz${props.darkMode ? " dark" : ""}`}>
-                    <div>{questionElements}</div>
+                    <div style={{ width: "100%" }}>{questionElements}</div>
                     {!isFinished && (
                         <button
                             type="button"
